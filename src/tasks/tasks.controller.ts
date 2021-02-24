@@ -8,10 +8,14 @@ import {
   NotFoundException,
   Patch,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
+import { pipe } from 'rxjs';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { SearchTasksDTO } from './dto/search-tasks.dto';
 import { Task, TaskStatus } from './model/task.model';
+import { StatusUpdateValidationPipe } from './pipes/task.status.validation.pipe';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -33,21 +37,21 @@ export class TasksController {
   }
 
   @Post()
+  @UsePipes(ValidationPipe)
   createTask(@Body() createTaskDto: CreateTaskDTO) {
     return this.taskService.createTask(createTaskDto);
   }
 
   @Delete('/:id')
   deleteTask(@Param('id') id: string) {
-    try {
-      return this.taskService.deleteItem(id);
-    } catch (error) {
-      throw new NotFoundException('Item not found');
-    }
+    return this.taskService.deleteItem(id);
   }
 
   @Patch('/:id/status')
-  updateStatus(@Param('id') id: string, @Body('status') status: TaskStatus) {
+  updateStatus(
+    @Param('id') id: string,
+    @Body('status', StatusUpdateValidationPipe) status: TaskStatus,
+  ) {
     return this.taskService.updateStatus(id, status);
   }
 }
