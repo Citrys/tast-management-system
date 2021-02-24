@@ -921,6 +921,11 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/uuid@^8.3.0":
+  version "8.3.0"
+  resolved "https://packages01-internal.adstream.com/artifactory/api/npm/npm-virtual/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
+  integrity sha1-IVwjHf9zbVupJBDm1gIFDM5+Jz8=
+
 "@types/webpack-sources@*":
   version "2.1.0"
   resolved "https://packages01-internal.adstream.com/artifactory/api/npm/npm-virtual/@types/webpack-sources/-/webpack-sources-2.1.0.tgz#8882b0bd62d1e0ce62f183d0d01b72e6e82e8c10"
@@ -4881,6 +4886,11 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
+rxjs-compat@^6.6.3:
+  version "6.6.3"
+  resolved "https://packages01-internal.adstream.com/artifactory/api/npm/npm-virtual/rxjs-compat/-/rxjs-compat-6.6.3.tgz#141405fcee11f48718d428b99c8f01826f594e5c"
+  integrity sha1-FBQF/O4R9IcY1Ci5nI8Bgm9ZTlw=
+
 rxjs@6.6.3, rxjs@^6.6.0, rxjs@^6.6.3:
   version "6.6.3"
   resolved "https://packages01-internal.adstream.com/artifactory/api/npm/npm-virtual/rxjs/-/rxjs-6.6.3.tgz#8ca84635c4daa900c0d3967a6ee7ac60271ee552"
@@ -5750,7 +5760,7 @@ utils-merge@1.0.1:
   resolved "https://packages01-internal.adstream.com/artifactory/api/npm/npm-virtual/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@8.3.2, uuid@^8.3.0:
+uuid@8.3.2, uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://packages01-internal.adstream.com/artifactory/api/npm/npm-virtual/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha1-gNW1ztJxu5r2xEXyGhoExgbO++I=
