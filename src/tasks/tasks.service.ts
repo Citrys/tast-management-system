@@ -14,24 +14,35 @@ export class TasksService {
     private taskRepository: TaskRepository,
   ) {}
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async getTasks(filter: SearchTasksDTO): Promise<Task[]> {
-    return this.taskRepository.getTasks(filter);
+  async getTasks(filter: SearchTasksDTO, user: User): Promise<Task[]> {
+    return this.taskRepository.getTasks(filter, user);
   }
 
-  async getTaskbyId(task: number): Promise<Task> {
-    const found = await this.taskRepository.findOne(task);
-    if (!found) {
+  async getTaskbyId(task: number, user: User): Promise<Task> {
+    try {
+      const found = await this.taskRepository.findOne({
+        where: {
+          id: task,
+          userId: user.id,
+        },
+      });
+      console.log(found);
+      if (!found) {
+        throw new NotFoundException(`Item with ${task} not found`);
+      }
+      return found;
+    } catch (error) {
+      console.log(error.message);
       throw new NotFoundException(`Item with ${task} not found`);
     }
-    return found;
   }
 
   async createTask(taskDto: CreateTaskDTO, user: User): Promise<Task> {
     return this.taskRepository.createTask(taskDto, user);
   }
 
-  async deleteItem(id: number) {
-    const task = this.getTaskbyId(id);
+  async deleteItem(id: number, user: User) {
+    const task = this.getTaskbyId(id, user);
     if (!task) {
       throw new NotFoundException(`Item with ${id} not found`);
     } else {
@@ -40,8 +51,8 @@ export class TasksService {
     }
   }
 
-  async updateStatus(id: number, status: TaskStatus) {
-    const item = await this.getTaskbyId(id);
+  async updateStatus(id: number, status: TaskStatus, user: User) {
+    const item = await this.getTaskbyId(id, user);
     item.status = status;
     console.log(`new status is ${item.status}`);
     await item.save();

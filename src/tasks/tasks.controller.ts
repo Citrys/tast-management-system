@@ -28,13 +28,16 @@ export class TasksController {
   constructor(private taskService: TasksService) {}
 
   @Get()
-  getAllItem(@Query() filter: SearchTasksDTO) {
-    return this.taskService.getTasks(filter);
+  getAllItem(@Query() filter: SearchTasksDTO, @GetUser() user: User) {
+    return this.taskService.getTasks(filter, user);
   }
 
   @Get('/:id')
-  getTask(@Param('id', ParseIntPipe) id: number): Promise<Task> {
-    return this.taskService.getTaskbyId(id);
+  getTask(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.taskService.getTaskbyId(id, user);
   }
 
   @Post()
@@ -47,15 +50,17 @@ export class TasksController {
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id', ParseIntPipe) id: number) {
-    return this.taskService.deleteItem(id);
+  deleteTask(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
+    return this.taskService.deleteItem(id, user);
   }
 
   @Patch('/:id/status')
   updateStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body('status', StatusUpdateValidationPipe) status: TaskStatus,
+    @GetUser() user: User,
   ) {
-    return this.taskService.updateStatus(id, status);
+    console.log(`Status is ${status}`);
+    return this.taskService.updateStatus(id, status, user);
   }
 }

@@ -8,6 +8,7 @@ export class StatusUpdateValidationPipe implements PipeTransform {
     TaskStatus.open,
   ];
   transform(value: any) {
+    console.log(`Incomming value is ${value}`);
     if (!this.isStatusValid(value)) {
       throw new BadRequestException(`Invalid status value ${value}`);
     }
