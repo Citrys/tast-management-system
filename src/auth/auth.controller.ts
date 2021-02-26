@@ -4,17 +4,20 @@ import { AuthCredentialsDTO } from './dto/auth.credentials.dto';
 
 @Controller('auth')
 export class AuthController {
-  private logger = new Logger()
+  private logger = new Logger();
   constructor(private authService: AuthService) {}
 
   @Post('/signup')
   singUp(@Body(ValidationPipe) auth: AuthCredentialsDTO) {
+    this.logger.log(`User registration attempt ${auth.username}`);
     return this.authService.singUp(auth);
   }
 
   @Post('/signin')
   login(@Body(ValidationPipe) auth: AuthCredentialsDTO) {
-    this.logger.log(`Login attempt with user dt: ${JSON.stringify(auth)}`);
+    this.logger.log(
+      `Login attempt with user dt: ${JSON.stringify(auth.username)}`,
+    );
     return this.authService.login(auth);
   }
 }
